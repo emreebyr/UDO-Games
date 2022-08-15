@@ -7,6 +7,9 @@ TagManager:
   - cube
   - sphere
   - capsule
+  - capsulegameobject
+  - cubegameobject
+  - spheregameobject
   layers:
   - Default
   - TransparentFX

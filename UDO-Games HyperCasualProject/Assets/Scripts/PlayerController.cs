@@ -11,9 +11,7 @@ public class PlayerController : MonoBehaviour
     public float speedModifier;
 
     public bool GoForward;
-    private float _lastFrameFingerPositionX;
-    private float _moveFactorX;
-    public float MoveFactorX => _moveFactorX;
+
     
     void Start()
     {
@@ -47,7 +45,7 @@ public class PlayerController : MonoBehaviour
             {
                 
                 transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x,-50f,50f) + touch.deltaPosition.x * speedModifier/15,
+                    Mathf.Clamp(transform.position.x,-7,7f) + touch.deltaPosition.x * speedModifier/15,
                     transform.position.y,
                     transform.position.z
                 );
