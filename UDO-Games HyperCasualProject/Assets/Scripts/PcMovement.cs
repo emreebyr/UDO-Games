@@ -11,7 +11,11 @@ public class PcMovement : MonoBehaviour
     [SerializeField] public float _moveSpeed;
 
 
-     void Update()
+    void Start()
+    {
+       
+    }
+     void LateUpdate()
     {
         BallMoveForward();
         BallHorizontalMovement();
@@ -21,7 +25,9 @@ public class PcMovement : MonoBehaviour
     private void BallHorizontalMovement() {
         float _newX = 0;
 
-        if(Input.GetMouseButton(0)) {
+        if(Input.GetMouseButton(0)) 
+        {
+
             _horizontal = Input.GetAxisRaw("Mouse X");
         }
         else

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,8 +10,13 @@ public class PlayerController : MonoBehaviour
     public float ForwardSpeed;
     public Touch touch;
     public float speedModifier;
-
     public bool GoForward;
+    
+    public TextMeshProUGUI startingText;
+
+
+   
+
 
     
     void Start()
@@ -24,23 +30,16 @@ public class PlayerController : MonoBehaviour
             if(GoForward)
             {
                 transform.Translate(0,0,ForwardSpeed*Time.deltaTime);
+                Destroy(startingText);
 
             }
-
-             if (Input.GetMouseButtonDown(0))
-            {   
-
-                GoForward = true;
-               
-            }
-
         
-           
         if (Input.touchCount>0)
         {   
             
             touch = Input.GetTouch(0);
             GoForward = true;
+            
             if (touch.phase == TouchPhase.Moved)
             {
                 
