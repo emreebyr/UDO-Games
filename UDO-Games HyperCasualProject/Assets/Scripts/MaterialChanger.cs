@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MaterialChanger : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class MaterialChanger : MonoBehaviour
     public GameObject ambulance;
     public GameObject firetruck;
     public GameObject poorguy;
+
+   public PlayerController Control;
     
      public TextMeshProUGUI scoreText;
      private int score;
@@ -24,14 +27,11 @@ public class MaterialChanger : MonoBehaviour
     public List<GameObject> Firetruck = new List<GameObject>();
     public List<GameObject> Ambulance = new List<GameObject>();
 
-    //public PlayerController Control;
-    //public PcMovement Control2;
-
 
     void Start()
     {
-        //Control = GetComponent<PlayerController>();
-        //Control2 = GetComponent<PcMovement>();
+         Control = GetComponent<PlayerController>();
+
     }
 
     void FixedUpdate()
@@ -42,12 +42,9 @@ public class MaterialChanger : MonoBehaviour
     
    void OnTriggerEnter(Collider other) 
         {
-            
-             //transform.DORewind ();
-             //transform.DOScale (new Vector3 (0.1f, 0.1f, 0.1f), 0.25f);
-             //transform.DORotate(new Vector3(180, 0, 0), 1, RotateMode.FastBeyond360);
-             
-         Vector3 OriginalScale= transform.localScale; DOTween.Sequence() .Append(transform.DOScale(new Vector3(OriginalScale.x + 0.05f, OriginalScale.y + 0.05f, OriginalScale.z + 0.05f), 0.3f).SetEase(Ease.Linear)) .Append(transform.DOScale(OriginalScale, 0.4f).SetEase(Ease.Linear));
+                    
+         Vector3 OriginalScale= transform.localScale; DOTween.Sequence() .Append(transform.DOScale(new Vector3(OriginalScale.x + 0.009f, OriginalScale.y + 0.009f, OriginalScale.z + 0.009f), 0.3f).SetEase(Ease.Linear)) .Append(transform.DOScale(OriginalScale, 0.6f).SetEase(Ease.Linear));
+         Destroy (other.gameObject);
 
 
              
@@ -55,8 +52,7 @@ public class MaterialChanger : MonoBehaviour
         if(other.gameObject.tag=="policegameobject")
             {
                
-               Destroy (other.gameObject);
-               Debug.Log("kapsül toplandi");
+
                score=score+5;
 
             }
@@ -64,18 +60,32 @@ public class MaterialChanger : MonoBehaviour
          if(other.gameObject.tag=="firegameobject")
             {
                
-               Destroy (other.gameObject);
-               Debug.Log("küp toplandi");
                score=score+10;
+
+            }
+
+         if(other.gameObject.tag=="bed")
+            {
+               
+               score=score-15;
 
             }
 
          if(other.gameObject.tag=="ambulancegameobject")
             {
                
-               Destroy (other.gameObject);
-               Debug.Log("sphere toplandi");
+
                score=score+15;
+
+            }
+
+            if(other.gameObject.tag=="finishline")
+            {
+               
+
+               Debug.Log("OYUNBİTTİ");
+
+               Invoke("finishdelay",1f);
 
             }
 
@@ -94,6 +104,7 @@ public class MaterialChanger : MonoBehaviour
             i++;
             Debug.Log("küp seçildi");
 
+
             }
      
         if(other.gameObject.tag=="firetruck")
@@ -109,6 +120,7 @@ public class MaterialChanger : MonoBehaviour
             poorguy.SetActive(false);
             Firetruck[j].SetActive(true);
             j++;
+
             }
 
         if(other.gameObject.tag=="ambulance")
@@ -124,7 +136,20 @@ public class MaterialChanger : MonoBehaviour
             firetruck.SetActive(false);
             Ambulance[k].SetActive(true);
             k++;
-         
+
             }
    }
+
+   void finishdelay()
+               {
+                  Control.GoForward = false;
+                   Invoke("nextLevel", 3.0f);
+
+               }
+
+    void nextLevel()
+    {
+      SceneManager.LoadScene("level2");
+    }           
+
 }

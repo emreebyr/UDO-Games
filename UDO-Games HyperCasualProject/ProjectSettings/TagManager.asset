@@ -11,6 +11,8 @@ TagManager:
   - ambulancegameobject
   - firegameobject
   - policegameobject
+  - finishline
+  - bed
   layers:
   - Default
   - TransparentFX
